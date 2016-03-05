@@ -1,0 +1,329 @@
+<container class="com.datasynapse.fabric.container.ExecContainer"
+	name="ConsulEnabler">
+
+	<import package="com.datasynapse.fabric.common" />
+	<import package="com.datasynapse.fabric.common.script" />
+	<import package="com.datasynapse.fabric.container" />
+	<import package="com.datasynapse.fabric.util" />
+
+	<property name="name" value="${project.name}" />
+	<property name="version" value="${project.version}" />
+	<property name="distributionVersion" value="${project.version}" />
+	<property name="blocking" value="false" />
+	<property name="supportedDomainType" value="Default:${component.type.version}" />
+	<property name="shutdownTimeout" value="60000" />
+	<property name="description" value="${project.description}" />
+	<property name="componentInstanceNumberingEnabled" value="true" />
+
+	<script class="Script">
+		<property name="languageVersion" value="2.5" />
+		<property name="name" value="ConsulEnabler.py" />
+		<property name="language" value="python" />
+	</script>
+
+
+	<runtimecontexttemplate class="DefaultRuntimeContext">
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="datacenter1" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Datacenter name" />
+			<property name="name" value="DATACENTER" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Consul cluster configuration shared directory" />
+			<property name="name" value="CLUSTER_CONFIG_DIR" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="node-" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Consul node name prefix" />
+			<property name="name" value="NODE_NAME_PREFIX" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="${CONTAINER_WORK_DIR}/consul.data" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Path to the data directory" />
+			<property name="name" value="DATA_DIR" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="${CONTAINER_WORK_DIR}/consul.d/config.json" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Path to the configuration file" />
+			<property name="name" value="CONFIG_FILE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Enable development server mode." />
+			<property name="name" value="DEV_MODE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="INFO" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Consul log level" />
+			<property name="name" value="LOG_LEVEL" />
+		</variable>
+
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8500" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used by clients to talk to the HTTP API. TCP only." />
+			<property name="name" value="HTTP_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8543" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used by clients to talk to the HTTP API over SSL. TCP only." />
+			<property name="name" value="HTTPS_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8400" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used by all agents to handle RPC from the CLI. TCP only." />
+			<property name="name" value="CLI_RPC_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8300" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used by servers to handle incoming requests from other agents. TCP only." />
+			<property name="name" value="SERVER_RPC_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8330" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used to handle gossip in the LAN. Required by all agents. TCP and UDP." />
+			<property name="name" value="SERF_LAN_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8360" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used by servers to gossip over the WAN to other servers. TCP and UDP." />
+			<property name="name" value="SERF_WAN_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8600" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description" value="Used to resolve DNS queries. TCP and UDP." />
+			<property name="name" value="DNS_SERVER_PORT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Enable debug" />
+			<property name="name" value="ENABLE_DEBUG" />
+		</variable>
+
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Enable syslog" />
+			<property name="name" value="ENABLE_SYSLOG" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="Base 64 encoded 16 byte encryption key used by Consul cluster nodes to encrypt internal network communications" />
+			<property name="name" value="ENCRYPT" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This provides a file path to a PEM-encoded certificate authority. " />
+			<property name="name" value="CA_FILE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This provides a file path to a PEM-encoded certificate. Must be used with KEY_FILE." />
+			<property name="name" value="CERT_FILE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This provides a the file path to a PEM-encoded private key. " />
+			<property name="name" value="KEY_FILE" />
+		</variable>
+
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="true" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="If this is set to true or false, then it controls reaping regardless of Consul's PID." />
+			<property name="name" value="REAP" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="If set to true, Consul requires that all incoming connections make use of TLS and that the client provides a certificate signed by the Certificate Authority." />
+			<property name="name" value="VERIFY_INCOMING" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="If set to true, Consul requires that all outgoing connections make use of TLS and that the server provides a certificate that is signed by the Certificate Authority." />
+			<property name="name" value="VERIFY_OUTGOING" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="If set to true, Consul verifies for all outgoing connections that the TLS certificate presented by the servers matches server hostname. " />
+			<property name="name" value="VERIFY_SERVER_HOSTNAME" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="consul." />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Consul DNS domain name" />
+			<property name="name" value="CONSUL_DOMAIN" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="8.8.8.8" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This flag provides addresses of upstream DNS servers that are used to recursively resolve queries if they are not inside the service domain for consul." />
+			<property name="name" value="RECURSOR_DNS_SERVERS" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="true" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="Enables a stale query for DNS information. This allows any Consul server, rather than only the leader, to service the request. " />
+			<property name="name" value="ALLOW_STALE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="value" value="5s" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="This is used to limit how stale DNS results are allowed to be. " />
+			<property name="name" value="MAX_STALE" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="name" value="LOCK_WAIT" />
+			<property name="value" value="120000" />
+			<property name="type" value="String" />
+			<property name="description" value="Global lock wait timeout (ms)" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="name" value="LOCK_EXPIRE" />
+			<property name="value" value="300000" />
+			<property name="type" value="String" />
+			<property name="description" value="Global lock expire timeout (ms)" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="name" value="STALE_CONFIG_WAIT" />
+			<property name="value" value="60" />
+			<property name="type" value="String" />
+			<property name="description"
+				value="Clear stale cluster configuration wait timeout (s)" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="name" value="RUNNING_POLL_PERIOD" />
+			<property name="value" value="60000" />
+			<property name="type" value="String" />
+			<property name="description" value="Running condition poll period (ms)" />
+		</variable>
+
+		<variable class="RuntimeContextVariable">
+			<property name="name" value="START_POLL_PERIOD" />
+			<property name="value" value="10000" />
+			<property name="type" value="String" />
+			<property name="description" value="Start condition poll period (ms)" />
+		</variable>
+
+	</runtimecontexttemplate>
+
+	<unixcommand class="LifecycleCommand">
+		<property name="shutdownCommand" value="" />
+		<property name="startupCommand" value="" />
+	</unixcommand>
+
+	<windowscommand class="LifecycleCommand">
+		<property name="shutdownCommand" value="" />
+		<property name="startupCommand" value="" />
+	</windowscommand>
+
+	<supportedfeature class="Feature">
+		<property name="formTitle" value="Feature: Application Logging Support" />
+		<property name="description"
+			value="Support for handling of custom application logs" />
+		<property name="infoDescription"
+			value="Specify if application logs are archived to the Engine log directory for viewing/searching. &lt;i&gt;Note: The current application logs are still available for viewing/searching if this is not checked.&lt;/i&gt;" />
+		<property name="infoClass"
+			value="com.datasynapse.fabric.domain.featureinfo.ApplicationLoggingInfo" />
+		<property name="name" value="Application Logging Support" />
+	</supportedfeature>
+</container>

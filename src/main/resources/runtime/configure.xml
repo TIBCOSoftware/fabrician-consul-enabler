@@ -1,0 +1,5 @@
+<containerConfig name="ConsulEnabler">
+	<configFiles baseDir="consul.d" include="*.json">
+		<velocity/>
+	</configFiles>
+</containerConfig>

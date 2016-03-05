@@ -1,0 +1,35 @@
+{
+  	"advertise_addr": "${LISTEN_ADDRESS}",
+  	"advertise_addr_wan": "${LISTEN_ADDRESS}",
+  	"bind_addr": "${LISTEN_ADDRESS}",
+  	"ca_file": "${CA_FILE}",
+  	"cert_file": "${CERT_FILE}",
+  	"client_addr": "${LISTEN_ADDRESS}",
+  	"datacenter": "${DATACENTER}",
+  	"data_dir": "${DATA_DIR}",
+  	"dns_config": {
+  		"allow_stale": ${ALLOW_STALE},
+  		"max_stale": "${MAX_STALE}"
+  	},
+  	"enable_debug": ${ENABLE_DEBUG},
+  	"enable_syslog": ${ENABLE_SYSLOG},
+  	"encrypt": "${ENCRYPT}",
+  	"key_file": "${KEY_FILE}",
+  	"log_level": "${LOG_LEVEL}",
+  	"node_name": "${NODE_NAME}",
+  	"ports" : {	
+  			"dns": ${DNS_SERVER_PORT},
+  			"http": ${HTTP_PORT},
+  			"https": ${HTTPS_PORT},
+  			"rpc": ${CLI_RPC_PORT},
+  			"serf_lan": ${SERF_LAN_PORT},
+  			"serf_wan": ${SERF_WAN_PORT},
+  			"server": ${SERVER_RPC_PORT}
+  	},
+  	"reap": ${REAP},
+  	"recursors": ["${RECURSOR_DNS_SERVERS}"],
+  	"server_name": "${ENGINE_USERNAME}",
+  	"verify_incoming": ${VERIFY_INCOMING},
+  	"verify_outgoing": ${VERIFY_OUTGOING},
+  	"verify_server_hostname": ${VERIFY_SERVER_HOSTNAME}
+}
