@@ -10,7 +10,7 @@ See [Consul] for details about Consul.
 
 ### Building the Enabler and Distribution
 ---------------------------------------------------
-This enabler project builds a `Silver Fabric Enabler Grid Library`. It also optionally builds a `Silver Fabric Distribution Grid Library` for Consul database. 
+This enabler project builds a `Silver Fabric Enabler Grid Library`. It also optionally builds a `Silver Fabric Distribution Grid Library` for Consul . 
 The Silver Fabric Grid Libraries can be built by executing Maven `install`. After a successful build, the Enabler and Distribution Grid Library files 
 can be found under project `target` folder. 
 
@@ -93,7 +93,7 @@ Below is a screenshot image from an example Consul cluster Stack defined in Silv
 This example defines a cluster of size 1. The cluster size is specified in the Stack. 
 
 It is best to run no more than one Consul node on a single host. This is configured in the Component and the Stack. In the Component it is 
-configured by specifying `Maximum Instances Per Host` option and in the Stack this is using through a resource preference
+configured by specifying `Maximum Instances Per Host` option and in the Stack it is configured using a resource preference
 rule for a specific Silver Fabric Engine Instance, for example, 0.
 
 * [Consul Cluster Stack] (images/consul-cluster-stack.png)
